@@ -1,0 +1,12 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/sam/dev/pi/kittiwake/onboard"
+		}
+	],
+    "settings": {
+        "python_interpreter": "~/.virtualenvs/test1/bin/python"
+    }
+}

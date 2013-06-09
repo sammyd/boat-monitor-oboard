@@ -1,0 +1,546 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"mock_",
+				"mock_event_loop"
+			],
+			[
+				"mock",
+				"mock_dispatcher"
+			],
+			[
+				"data",
+				"data_reader"
+			],
+			[
+				"moc",
+				"mock_event_loop"
+			],
+			[
+				"number",
+				"number_samples"
+			],
+			[
+				"eve",
+				"event_loop"
+			],
+			[
+				"ev",
+				"event_loop"
+			],
+			[
+				"str",
+				"strategy"
+			],
+			[
+				"mo",
+				"movies_directed_by"
+			],
+			[
+				"Movi",
+				"MovieFinder"
+			],
+			[
+				"Mov",
+				"MovieLister"
+			],
+			[
+				"user",
+				"user_v_pages_path"
+			],
+			[
+				"pin",
+				"principal"
+			],
+			[
+				"form_f",
+				"form_fields"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "onboard/input/dispatcher.py",
+			"settings":
+			{
+				"buffer_size": 629,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "onboard/tests/input/test_dispatcher.py",
+			"settings":
+			{
+				"buffer_size": 142,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "onboard/utils/queue_wrapper.py",
+			"settings":
+			{
+				"buffer_size": 1392,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "onboard/input/data_reader.py",
+			"settings":
+			{
+				"buffer_size": 1551,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "onboard/tests/input/test_data_reader.py",
+			"settings":
+			{
+				"buffer_size": 1375,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 207.0,
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/sam/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/sam/dev/pi/kittiwake/onboard/onboard/utils/__init__.py",
+		"/Users/sam/dev/pi/kittiwake/onboard/onboard/tests/__init__.py",
+		"/Users/sam/dev/pi/kittiwake/onboard/onboard/tests/input/__init__.py",
+		"/Users/sam/dev/pi/kittiwake/onboard/onboard/__init__.py",
+		"/Users/sam/dev/pi/kittiwake/onboard/onboard/input/__init__.py",
+		"/Users/sam/dev/pi/kittiwake/onboard/.gitignore",
+		"/Users/sam/dev/pi/learning/movielist/movies-context.xml",
+		"/Users/sam/dev/pi/learning/movielist/.gitignore",
+		"/Users/sam/dev/pi/learning/movielist/movies.csv",
+		"/Users/sam/dev/pi/learning/movielist/movies/lister.py",
+		"/Users/sam/dev/pi/learning/movielist/app.py",
+		"/Users/sam/dev/pi/learning/movielist/movies/finder.py",
+		"/Users/sam/dev/pi/learning/movielist/movies/__init__.py",
+		"/Users/sam/dev/pi/learning/movielist/movies/movie.py",
+		"/Users/sam/dev/pi/learning/movielist/movies.txt",
+		"/Users/sam/Google Drive/projects/kittiwake/networking/networkingSettings",
+		"/Users/sam/dev/4blog/blog/source/_includes/google_analytics.html",
+		"/Users/sam/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/sam/dev/iOS/TeamList/TeamList/ShinobiLicense.sample.plist",
+		"/Users/sam/dev/iOS/TeamList/.git/hooks/post-commit",
+		"/Users/sam/dev/iOS/TeamList/.git/hooks/pre-commit",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/application.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/environment.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/Gemfile",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/messages/show.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/controllers/forms_controller.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/index.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/routes.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/ability.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/_stylesheet_form.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/controllers/v_pages_controller.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/message.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/subscription_payment.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/user.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/v_page.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/initializers/obfuscation.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/show.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/vpage_error.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/practice_policy.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/v_pages/complaints_policy.html.haml",
+		"/Users/sam/dev/4blog/blog/source/_posts/2013-03-10-building-a-range-selector-with-shinobi-charts-part-iv-adding-a-value-tracking-annotation.markdown",
+		"/Users/sam/dev/4blog/blog/sass/base/_layout.scss",
+		"/Users/sam/dev/4blog/blog/source/javascripts/github.js",
+		"/Users/sam/dev/4blog/blog/Gemfile.lock",
+		"/Users/sam/dev/4blog/blog/_config.yml",
+		"/Users/sam/dev/4blog/blog/source/_posts/2013-01-19-building-a-range-selector-with-shinobi-charts-part-iii-adding-momentum.markdown",
+		"/Users/sam/dev/4blog/blog/source/_posts/2013-01-15-building-a-range-selector-with-shinobi-charts-part-ii-creating-custom-handle-annotations.markdown",
+		"/Users/sam/dev/4blog/blog/source/_posts/2013-01-11-building-a-range-selector-with-shinobi-charts-part-i-linking-2-charts.markdown",
+		"/Users/sam/Documents/2013-03-10-value-annotation.png",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/forms/display.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/forms/display_problem.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/assets/stylesheets/print/print-overrides.css.scss",
+		"/Users/sam/dev/consultancy/zonkey/valident/spec/factories/form_fields.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/forms/_field.html.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/models/form_field.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/db/migrate/20130218211420_add_required_to_form_fields.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/spec/factories/users.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/user_mailer/reset_password_email.text.haml",
+		"/Users/sam/dev/consultancy/zonkey/valident/spec/mailers/user_mailer_spec.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/environments/production.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/config.ru",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/initializers/delayed_job.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/lib/nightly_emails_job.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/config/deploy/staging.rb",
+		"/Users/sam/dev/consultancy/zonkey/valident/app/views/messages/_actions.html.haml"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"[^\\x00-\\x7F]",
+			"authorise_payment_path",
+			"current_user",
+			"=",
+			"width: 30%",
+			"shinobi ",
+			"shinobi",
+			"ext",
+			"external",
+			"map",
+			"render_view",
+			"yes_no",
+			"SMTP_SETTINGS"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "onboard/input/dispatcher.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 629,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								629,
+								629
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "onboard/tests/input/test_dispatcher.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								142,
+								142
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "onboard/utils/queue_wrapper.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12,
+								12
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "onboard/input/data_reader.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1551,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								921,
+								921
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "onboard/tests/input/test_data_reader.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								158,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "onbaord.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"xm",
+				"movielist/movies-context.xml"
+			],
+			[
+				"__",
+				"movielist/movies/__init__.py"
+			],
+			[
+				"ap",
+				"movielist/app.py"
+			],
+			[
+				"fin",
+				"movielist/movies/finder.py"
+			],
+			[
+				"li",
+				"movielist/movies/lister.py"
+			],
+			[
+				"gemfi",
+				"Gemfile"
+			],
+			[
+				"envi",
+				"config/environment.rb"
+			],
+			[
+				"applica",
+				"config/application.rb"
+			],
+			[
+				"rout",
+				"config/routes.rb"
+			],
+			[
+				"route",
+				"config/routes.rb"
+			],
+			[
+				"mous",
+				"app/models/user.rb"
+			],
+			[
+				"gem",
+				"Gemfile"
+			],
+			[
+				"apcofor",
+				"app/controllers/forms_controller.rb"
+			],
+			[
+				"forcon",
+				"app/controllers/forms_controller.rb"
+			],
+			[
+				"usmaispe",
+				"spec/mailers/user_mailer_spec.rb"
+			],
+			[
+				"apviurepw",
+				"app/views/user_mailer/reset_password_email.text.haml"
+			],
+			[
+				"apmous",
+				"app/models/user.rb"
+			],
+			[
+				"apmome",
+				"app/models/message.rb"
+			],
+			[
+				"formsco",
+				"app/controllers/forms_controller.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 204.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
