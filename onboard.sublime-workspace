@@ -64,26 +64,10 @@
 	"buffers":
 	[
 		{
-			"file": "onboard/input/dispatcher.py",
-			"settings":
-			{
-				"buffer_size": 629,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "onboard/tests/input/test_dispatcher.py",
-			"settings":
-			{
-				"buffer_size": 142,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "onboard/utils/queue_wrapper.py",
 			"settings":
 			{
-				"buffer_size": 1392,
+				"buffer_size": 1473,
 				"line_ending": "Unix"
 			}
 		},
@@ -91,7 +75,7 @@
 			"file": "onboard/input/data_reader.py",
 			"settings":
 			{
-				"buffer_size": 1551,
+				"buffer_size": 1569,
 				"line_ending": "Unix"
 			}
 		},
@@ -99,7 +83,7 @@
 			"file": "onboard/tests/input/test_data_reader.py",
 			"settings":
 			{
-				"buffer_size": 1375,
+				"buffer_size": 1357,
 				"line_ending": "Unix"
 			}
 		}
@@ -253,24 +237,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "onboard/input/dispatcher.py",
+					"file": "onboard/utils/queue_wrapper.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 629,
+						"buffer_size": 1473,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								629,
-								629
+								0,
+								0
 							]
 						],
 						"settings":
@@ -285,19 +269,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "onboard/tests/input/test_dispatcher.py",
+					"file": "onboard/input/data_reader.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 142,
+						"buffer_size": 1569,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								142,
-								142
+								0,
+								0
 							]
 						],
 						"settings":
@@ -312,72 +296,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "onboard/utils/queue_wrapper.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1392,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								12,
-								12
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "onboard/input/data_reader.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								921,
-								921
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
 					"file": "onboard/tests/input/test_data_reader.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1375,
+						"buffer_size": 1357,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								158,
+								0,
 								0
 							]
 						],
@@ -425,7 +355,7 @@
 		]
 	},
 	"menu_visible": true,
-	"project": "onbaord.sublime-project",
+	"project": "onboard.sublime-project",
 	"replace":
 	{
 		"height": 42.0

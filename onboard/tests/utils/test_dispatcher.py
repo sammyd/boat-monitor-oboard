@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
-from onboard.input.dispatcher import Dispatcher
+from onboard.utils.dispatcher import Dispatcher
 
 class TestDispatcher(unittest.TestCase):
     def setUp(self):
