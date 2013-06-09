@@ -55,5 +55,5 @@ class RandomDataSampleReader(SampleReader):
     def read_sample(self):
         data = dict()
         for i in range(self._number_samples):
-            data[i] = random.random()
+            data[("Queue%d" % i)] = random.random()
         return data

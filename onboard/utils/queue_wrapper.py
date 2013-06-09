@@ -1,42 +1,72 @@
 import pika
+import json
 
-class QueueWrapper:
+class TxQueueWrapper:
     def post_message(self, message):
         raise NotImplementedError
 
 
-class LoggingQueueManager(QueueWrapper):
+class LoggingTxQueueManager(TxQueueWrapper):
     def post_message(self, message):
         print(message)
 
 
-class AQMPBlockingQueueManager(QueueWrapper):
+class AQMPBlockingTxQueueManager(TxQueueWrapper):
+    def __init__(self, exchange):
+        self._exchange = exchange
+
     def post_message(self, message):
-        connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+        json_message = json.dumps(message[1])
+        encoded_message = json_message.encode("UTF-8")
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         channel = connection.channel()
-        channel.exchange_declare(exchange='raw_data', type='direct')
-        channel.basic_publish(exchange='raw_data', routing_key=message[0], body=message[1])
+        channel.exchange_declare(exchange=self._exchange, type='direct')
+        channel.basic_publish(exchange=self._exchange, routing_key=message[0], body=encoded_message)
         connection.close()
 
 
 
-class AQMPAsyncQueueManager(QueueWrapper):
-    def _on_open(self, connection):
-        connection.channel(self._on_channel_open)
 
-    def _on_channel_open(self, channel):
-        channel.basic_publish('test_exchange',
-                                'test_routing_key',
-                                'message body value',
-                                pika.BasicProperties(content_type='text/plain',
-                                                     delivery_mode=1))
-        self._connection.close()
 
-    def post_message(self, message):
-        # Step #1: Connect to RabbitMQ
-        parameters = pika.URLParameters('localhost')
-        self._connection = pika.SelectConnection(parameters=parameters,
-                                           on_open_callback=self._on_open)
+class RxQueueWrapperDelegate:
+    def message_received(self, message):
+        raise NotImplementedError
 
-        # Step #2 - Block on the IOLoop
-        self._connection.ioloop.start()
+
+class LoggingRxQueueWrapperDelegate:
+    def message_received(self, message):
+        print(message)
+
+
+
+class RxQueueWrapper:
+    def __init__(self, delegate):
+        self._delegate = delegate
+
+    def start(self):
+        raise NotImplementedError
+
+class AQMPRxQueueManager(RxQueueWrapper):
+    def __init__(self, delegate, exchange, routing_key):
+        super().__init__(delegate)
+        parameters = pika.ConnectionParameters(host='localhost')
+        self._connection = pika.BlockingConnection(parameters = parameters)
+        self._channel = self._connection.channel()
+
+        self._channel.exchange_declare(exchange='direct_logs', type='direct')
+
+        result = self._channel.queue_declare(exclusive=True)
+        queue_name = result.method.queue
+
+        self._channel.queue_bind(exchange=exchange, queue=queue_name, routing_key=routing_key)
+        self._channel.basic_consume(self._callback, queue=queue_name, no_ack=True)
+
+    def start(self):
+        self._channel.start_consuming()
+
+    def _callback(self, channel, method, properties, body):
+        from_json = json.loads(body.decode("UTF-8"))
+        self._delegate.message_received(from_json)
+
+
+
