@@ -14,11 +14,11 @@ class DataReader:
 
     def _start_sampling(self, sample_time):
         # Add to the event loop
-        timer = self._event_loop.timer(0, sample_time, self._timer_callback, 0)
+        self._timer = self._event_loop.timer(0, sample_time, self._timer_callback, 0)
         # And start the timer
-        timer.start()
+        self._timer.start()
 
-    def _timer_callback(self, event_loop):
+    def _timer_callback(self, watcher, revents):
         # Get the data
         data = self._sample_reader.read_sample()
         # Post data to the dispatcher

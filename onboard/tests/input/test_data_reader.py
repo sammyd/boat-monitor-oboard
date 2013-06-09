@@ -13,7 +13,7 @@ class TestDataReader(unittest.TestCase):
         self.sample_time = 5
         self.data_reader = DataReader(self.mock_sample_reader, self.mock_dispatcher, self.mock_event_loop, self.sample_time)
 
-    def test_ConstuctionAddsToEventLoop(self):
+    def test_StartSamplingAddsToEventLoop(self):
         self.mock_event_loop.timer.assert_called_once_with(0, self.sample_time, self.data_reader._timer_callback, 0)
 
     def test_TimerCallBackAttemptsToDispatch(self):

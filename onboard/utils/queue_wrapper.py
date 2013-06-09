@@ -5,6 +5,10 @@ class QueueWrapper:
         raise NotImplementedError
 
 
+class LoggingQueueManager(QueueWrapper):
+    def post_message(self, message):
+        print(message)
+
 
 class AQMPBlockingQueueManager(QueueWrapper):
     def post_message(self, message):
@@ -34,6 +38,5 @@ class AQMPAsyncQueueManager(QueueWrapper):
         self._connection = pika.SelectConnection(parameters=parameters,
                                            on_open_callback=self._on_open)
 
-        try:
-            # Step #2 - Block on the IOLoop
-            self._connection.ioloop.start()
+        # Step #2 - Block on the IOLoop
+        self._connection.ioloop.start()
