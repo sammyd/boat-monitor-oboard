@@ -28,7 +28,8 @@ config = {
             'r_ref': 47000
         }
     ],
-    'raw_data_exchange' : 'raw_data'
+    'raw_data_exchange' : 'raw_data',
+    'input_accuracy' : 14
 }
 
 '''
@@ -45,7 +46,8 @@ config = {
             'id'   : 'r2'
         }
     ],
-    'raw_data_exchange' : 'raw_data'
+    'raw_data_exchange' : 'raw_data',
+    'input_accuracy' : 14
 }
 
 

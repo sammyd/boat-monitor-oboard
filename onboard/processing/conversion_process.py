@@ -14,9 +14,10 @@ class ConversionThread(Thread):
 
 
 class ConversionMessageProcessor(RxQueueWrapperDelegate):
-    def __init__(self, dispatcher, conversionFactory):
+    def __init__(self, dispatcher, conversionFactory, configuration):
         self._conversionFactory = conversionFactory
         self._dispatcher = dispatcher
+        self._config = configuration
 
     def message_received(self, message):
         '''
@@ -29,13 +30,21 @@ class ConversionMessageProcessor(RxQueueWrapperDelegate):
         '''
 
         # Get hold of the right data convertor
-        convertor = self._conversionFactory.create_value_convertor(message['type'])
+        convertor = self._conversionFactory.create_value_convertor(self._find_config_for_sensor_id(message['sensor_id']))
 
         # Convert the value
         message['converted_value'] = convertor.convert(message['raw_value'])
 
         # Dispatch the message beyond
-        self._dispatcher.post(message)
+        self._dispatcher.post({'converted': [ message ]})
+
+    def _find_config_for_sensor_id(self, sensor_id):
+        ids = map(lambda x : x['id'], self._config['input'])
+        try:
+            idx = list(ids).index(sensor_id)
+        except:
+            print("problem")
+        return self._config['input'][idx]
 
 
 class ConversionProcess:

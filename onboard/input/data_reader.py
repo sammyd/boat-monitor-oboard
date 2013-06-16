@@ -1,5 +1,6 @@
 import random
 import time
+from onboard.input.gpio_input import PiADCInput
 
 class DataReader:
     '''
@@ -24,6 +25,7 @@ class DataReader:
         data = self._sample_reader.read_sample()
         # Construct the correct data structure
         dict_to_send = dict()
+        print(data)
         try:
             for dp in data:
                 if 'type' in dp:
@@ -61,9 +63,38 @@ class GPIODataSampleReader(SampleReader):
     def __init__(self, configuration):
         self._config = configuration
 
+    def _createADCSampler(self):
+        # Need to prepare the config
+        accuracy = self._config['input_accuracy']
+        channels = []
+        for input_config in self._config['input']:
+            channels.append(input_config['pin'])
+        self._piADCInput = PiADCInput(channels, accuracy)
+
     def read_sample(self):
-        data = list()
-        return data
+        samples = self._piADCInput.getSamples()
+        # Need to create data points of the correct form
+        datapoints = list()
+        for channel in samples:
+            # Need to find the relevant line in the config
+            cfg = self._input_config_for_channel(channel)
+            # And now create the data point
+            dp = dict()
+            dp['timestamp'] = time.time()
+            dp['raw_value'] = samples[channel]
+            dp['sensor_id'] = cfg['id']
+            dp['type']      = cfg['type']
+            datapoints.append(dp)
+
+        return datapoints
+
+    def _input_config_for_channel(self, channel):
+        pins = map(lambda x : x['pin'], self._config['input'])
+        try:
+            idx = list(pins).index(channel)
+        except:
+            print("problem")
+        return self._config['input'][idx]
 
 
 class RandomDataSampleReader(SampleReader):
@@ -71,17 +102,17 @@ class RandomDataSampleReader(SampleReader):
     This implementation generates a set number of random values
     '''
 
-    def __init__(self, number_samples):
-        self._number_samples = number_samples
+    def __init__(self, configuration):
+        self._config = configuration
 
     def read_sample(self):
         data = list()
-        for i in range(self._number_samples):
+        for sensor in self._config['input']:
             point = {
                       'timestamp': time.time(),
                            'type': 'random',
                       'raw_value': random.random(),
-                      'sensor_id': i
+                      'sensor_id': sensor['id']
                     }
             data.append(point)
         return data

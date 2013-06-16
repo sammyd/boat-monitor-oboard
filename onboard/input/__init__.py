@@ -14,6 +14,6 @@ class RawDataInputBinder(Binder):
         self.bind(Dispatcher).init(TxQueueWrapper)
         self.bind(TxQueueWrapper, to=AQMPBlockingTxQueueManager, strategy="singleton").init(configuration['raw_data_exchange'])
         #self.bind(SampleReader, to=GPIODataSampleReader, strategy="singleton").init(configuration)
-        self.bind(SampleReader, to=RandomDataSampleReader, strategy="singleton").init(2)
+        self.bind(SampleReader, to=RandomDataSampleReader, strategy="singleton").init(configuration)
         self.bind(Thread, to=InputThread, strategy="singleton").init(pyev.Loop)
         self.bind(pyev.Loop, strategy="singleton")

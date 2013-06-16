@@ -1,18 +1,22 @@
 from onboard.processing.value_convertor import ValueConvertor, ResistanceValueConvertor, TemperatureValueConvertor
 
 class ValueConvertorFactory:
-    def create_value_convertor(self, type, properties):
+    def create_value_convertor(self, properties):
         raise NotImplementedError
 
 
 class OnboardValueConvertorFactory:
-    def create_value_convertor(self, type, properties):
+    def create_value_convertor(self, properties):
+        try:
+            type = properties['type']
+        except:
+            print("Need to pass in properties with a type field")
         if(type == "resistance"):
             return self._create_resistance_convertor(properties)
         elif(type == "temperature"):
             return self._create_temperature_convertor(properties)
         else:
-            return ValueConvertor()
+            return ValueConvertor(None)
 
 
     def _create_resistance_convertor(self, properties):

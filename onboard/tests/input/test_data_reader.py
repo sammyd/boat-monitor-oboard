@@ -31,7 +31,10 @@ class TestDataReader(unittest.TestCase):
 class TestRandomDataSampleReader(unittest.TestCase):
 
     def test_ReturnsDictionaryOfCorrectSize(self):
-        sample_reader = RandomDataSampleReader(10)
+        cfg = { 'input' : [] }
+        for i in range(10):
+            cfg['input'].append({'type': 'random', 'id': i })
+        sample_reader = RandomDataSampleReader(cfg)
         data = sample_reader.read_sample()
-        self.assertTrue(len(data) == 10)
+        self.assertTrue(len(data) == len(cfg['input']))
 
