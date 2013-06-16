@@ -1,9 +1,9 @@
 from aglyph.binder import Binder
 
-from onboard.utils.queue_wrapper import RxQueueWrapper, RxQueueWrapperDelegate, LoggingRxQueueWrapperDelegate, AQMPRxQueueManager
+from onboard.utils.queue_wrapper import RxQueueWrapper, RxQueueWrapperDelegate, AQMPRxQueueManager
 from onboard.processing.conversion_process import ConversionThread, ConversionProcess, ConversionMessageProcessor
 from onboard.utils.dispatcher import Dispatcher
-from onboard.utils.queue_wrapper import LoggingTxQueueManager, TxQueueWrapper
+from onboard.utils.queue_wrapper import LoggingTxQueueManager, TxQueueWrapper, AQMPBlockingTxQueueManager
 from onboard.processing.value_convertor_factory import ValueConvertorFactory, OnboardValueConvertorFactory
 
 class ValueConversionBinder(Binder):
@@ -20,7 +20,8 @@ class ValueConversionBinder(Binder):
 
         # And transmission of the converted values
         self.bind(Dispatcher).init(TxQueueWrapper)
-        self.bind(TxQueueWrapper, to=LoggingTxQueueManager)
+        #self.bind(TxQueueWrapper, to=LoggingTxQueueManager)
+        self.bind(TxQueueWrapper, to=AQMPBlockingTxQueueManager, strategy="singleton").init(configuration['processed']['data_exchange'])
         
         # Thread and process management
         self.bind(ConversionThread, strategy="prototype").init(RxQueueWrapper)

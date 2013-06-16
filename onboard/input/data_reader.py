@@ -25,7 +25,6 @@ class DataReader:
         data = self._sample_reader.read_sample()
         # Construct the correct data structure
         dict_to_send = dict()
-        print(data)
         try:
             for dp in data:
                 if 'type' in dp:

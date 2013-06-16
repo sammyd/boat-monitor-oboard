@@ -36,7 +36,7 @@ class ConversionMessageProcessor(RxQueueWrapperDelegate):
         message['converted_value'] = convertor.convert(message['raw_value'])
 
         # Dispatch the message beyond
-        self._dispatcher.post({'converted': [ message ]})
+        self._dispatcher.post({self._config['processed']['queue']: [ message ]})
 
     def _find_config_for_sensor_id(self, sensor_id):
         ids = map(lambda x : x['id'], self._config['input'])

@@ -6,6 +6,8 @@ import time
 from onboard.processing import ValueConversionBinder
 from onboard.processing.conversion_process import ConversionProcess
 
+from onboard.transmission import TransmissionBinder
+
 config = {
     'input': [
         {
@@ -29,7 +31,11 @@ config = {
         }
     ],
     'raw_data_exchange' : 'raw_data',
-    'input_accuracy' : 14
+    'input_accuracy' : 14,
+    'processed' : {
+        'data_exchange' : 'converted_data',
+        'queue' : 'converted'
+    }
 }
 
 '''
@@ -47,7 +53,11 @@ config = {
         }
     ],
     'raw_data_exchange' : 'raw_data',
-    'input_accuracy' : 14
+    'input_accuracy' : 14,
+    'processed' : {
+        'data_exchange' : 'converted_data',
+        'queue' : 'converted'
+    }
 }
 
 
@@ -58,10 +68,13 @@ data_reader = input_binder.lookup(DataReader)
 conversion_binder = ValueConversionBinder(config)
 conversion_process = conversion_binder.lookup(ConversionProcess)
 
+transmission_binder = TransmissionBinder(config)
+transmission_thread = transmission_binder.lookup(Thread)
+
 try:
-  input_thread.daemon=True
   input_thread.start()
   conversion_process.start()
+  transmission_thread.start()
   while True: time.sleep(100)
 except (KeyboardInterrupt, SystemExit):
   print ('\n! Received keyboard interrupt, quitting threads.\n')
