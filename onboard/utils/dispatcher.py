@@ -14,5 +14,8 @@ class Dispatcher:
         specify which queue it should be dispatched to
         '''
         for key in data_object:
-            # Post the message to the queue queue_wrapper
-            self._queue_wrapper.post_message((key, data_object[key]))
+            for message in data_object[key]:
+                # Post the message to the queue queue_wrapper
+                self._queue_wrapper.post_message((key, message))
+
+

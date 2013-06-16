@@ -1,4 +1,5 @@
 import random
+import time
 
 class DataReader:
     '''
@@ -21,10 +22,29 @@ class DataReader:
     def _timer_callback(self, watcher, revents):
         # Get the data
         data = self._sample_reader.read_sample()
+        # Construct the correct data structure
+        dict_to_send = dict()
+        try:
+            for dp in data:
+                if 'type' in dp:
+                    if dp['type'] not in dict_to_send:
+                        dict_to_send[dp['type']] = list()
+                    dict_to_send[dp['type']].append(dp)
+        except TypeError:
+            print("TypeError")
+
         # Post data to the dispatcher
-        self._dispatcher.post(data)
+        self._dispatcher.post(dict_to_send)
 
 
+
+'''
+Let's specify that the data points are dictionaries with the following keys:
+ - timestamp
+ - type
+ - raw_value
+ - sensor_id
+'''
 
 
 class SampleReader:
@@ -40,7 +60,7 @@ class GPIODataSampleReader(SampleReader):
     '''
 
     def read_sample(self):
-        data = dict()
+        data = list()
         return data
 
 
@@ -53,7 +73,14 @@ class RandomDataSampleReader(SampleReader):
         self._number_samples = number_samples
 
     def read_sample(self):
-        data = dict()
+        data = list()
         for i in range(self._number_samples):
-            data[("Queue%d" % i)] = random.random()
+            point = {
+                      'timestamp': time.time(),
+                           'type': 'random',
+                      'raw_value': random.random(),
+                      'sensor_id': i
+                    }
+            data.append(point)
         return data
+

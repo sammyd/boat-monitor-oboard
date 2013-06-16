@@ -17,10 +17,11 @@ class TestDataReader(unittest.TestCase):
         self.mock_event_loop.timer.assert_called_once_with(0, self.sample_time, self.data_reader._timer_callback, 0)
 
     def test_TimerCallBackAttemptsToDispatch(self):
-        d = dict({'three': 3, 'one': 1, 'two': 2})
+        d = [{'type': 'first', 'value': 1}, {'type': 'first', 'value': 2}, {'type': 'second', 'value': 3}]
         self.mock_sample_reader.read_sample.return_value = d
         self.data_reader._timer_callback(None, None)
-        self.mock_dispatcher.post.assert_called_once_with(d)
+        expected_return = { 'first': [d[0], d[1]], 'second': [d[2]]}
+        self.mock_dispatcher.post.assert_called_once_with(expected_return)
 
     def test_TimerCallBackAttemptsToCollectSampleData(self):
         self.data_reader._timer_callback(None, None)
