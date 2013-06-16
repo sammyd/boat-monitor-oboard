@@ -58,6 +58,8 @@ class GPIODataSampleReader(SampleReader):
     '''
     This implementation will read samples from the GPIO for the Pi-ADC
     '''
+    def __init__(self, configuration):
+        self._config = configuration
 
     def read_sample(self):
         data = list()

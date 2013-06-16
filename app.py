@@ -4,19 +4,62 @@ from threading import Thread
 import time
 
 from onboard.processing import ValueConversionBinder
+from onboard.processing.conversion_process import ConversionProcess
 
-input_binder = RawDataInputBinder()
+config = {
+    'input': [
+        {
+            'pin'  : 0,
+            'type' : 'resistance',
+            'id'   : 'pin0',
+            'v_in' : 12.0,
+            'r_ref': 10000
+        },
+        {
+            'pin'  : 1,
+            'type' : 'voltage',
+            'id'   : 'pin1'
+        },
+        {
+            'pin'  : 2,
+            'type' : 'resistance',
+            'id'   : 'pin2',
+            'v_in' : 12.0,
+            'r_ref': 47000
+        }
+    ],
+    'raw_data_exchange' : 'raw_data'
+}
+
+'''
+For demonstration purposes
+'''
+config = {
+    'input': [
+        {
+            'type' : 'random',
+            'id'   : 'r1'
+        },
+        {
+            'type' : 'random',
+            'id'   : 'r2'
+        }
+    ],
+    'raw_data_exchange' : 'raw_data'
+}
+
+
+input_binder = RawDataInputBinder(config)
 input_thread = input_binder.lookup(Thread)
 data_reader = input_binder.lookup(DataReader)
 
-conversion_binder = ValueConversionBinder()
-conversion_thread = conversion_binder.lookup(Thread)
+conversion_binder = ValueConversionBinder(config)
+conversion_process = conversion_binder.lookup(ConversionProcess)
 
 try:
   input_thread.daemon=True
   input_thread.start()
-  conversion_thread.daemon=True
-  conversion_thread.start()
+  conversion_process.start()
   while True: time.sleep(100)
 except (KeyboardInterrupt, SystemExit):
   print ('\n! Received keyboard interrupt, quitting threads.\n')

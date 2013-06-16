@@ -4,10 +4,11 @@ from onboard.utils.queue_wrapper import RxQueueWrapperDelegate
 class ConversionThread(Thread):
     def __init__(self, rx_queue_wrapper):
         super().__init__()
-        self._rx_queue_wrapper = rx_queue_wrapper
+        self.rx_queue_wrapper = rx_queue_wrapper
+        self.daemon = True
 
     def run(self):
-        self._rx_queue_wrapper.start()
+        self.rx_queue_wrapper.start(self.routing_key)
 
 
 
@@ -36,3 +37,32 @@ class ConversionMessageProcessor(RxQueueWrapperDelegate):
         # Dispatch the message beyond
         self._dispatcher.post(message)
 
+
+class ConversionProcess:
+    def __init__(self, configuration, binder):
+        self._config = configuration
+        self.conversionBinder = binder
+        self.createThreads()
+
+    def createThreads(self):
+        # We want one thread per queue. We work that out from the config
+        queues = []
+        try:
+            for input_type in self._config['input']:
+                if input_type['type'] not in queues:
+                    queues.append(input_type['type'])
+        except:
+            print("Problem generating queue list")
+
+        # Now create the threads
+        self._threads = []
+        for queue_type in queues:
+            new_thread = self.conversionBinder.lookup(ConversionThread)
+            new_thread.routing_key = queue_type
+            self._threads.append(new_thread)
+
+
+
+    def start(self):
+        for thread in self._threads:
+            thread.start()

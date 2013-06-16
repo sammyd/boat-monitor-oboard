@@ -27,7 +27,6 @@ class AQMPBlockingTxQueueManager(TxQueueWrapper):
 
 
 
-
 class RxQueueWrapperDelegate:
     def message_received(self, message):
         raise NotImplementedError
@@ -47,21 +46,27 @@ class RxQueueWrapper:
         raise NotImplementedError
 
 class AQMPRxQueueManager(RxQueueWrapper):
-    def __init__(self, delegate, exchange, routing_key):
+    def __init__(self, delegate, exchange):
         super().__init__(delegate)
+
+        self._exchange = exchange
+
         parameters = pika.ConnectionParameters(host='localhost')
         self._connection = pika.BlockingConnection(parameters = parameters)
         self._channel = self._connection.channel()
 
-        self._channel.exchange_declare(exchange='direct_logs', type='direct')
+        self._channel.exchange_declare(exchange=self._exchange, type='direct')
 
+
+    def start(self, routing_key):
+        # Get queue and bind to it
         result = self._channel.queue_declare(exclusive=True)
         queue_name = result.method.queue
 
-        self._channel.queue_bind(exchange=exchange, queue=queue_name, routing_key=routing_key)
+        self._channel.queue_bind(exchange=self._exchange, queue=queue_name, routing_key=routing_key)
         self._channel.basic_consume(self._callback, queue=queue_name, no_ack=True)
 
-    def start(self):
+        # Start listening
         self._channel.start_consuming()
 
     def _callback(self, channel, method, properties, body):
