@@ -1,8 +1,10 @@
 from aglyph.binder import Binder
 
-from onboard.utils.queue_wrapper import RxQueueWrapper, RxQueueWrapperDelegate, AQMPRxQueueManager, LoggingRxQueueWrapperDelegate
+from onboard.utils.queue_wrapper import RxMultiDelegateQueueWrapper, AQMPMultiCastAsyncRxQueueManager
 from threading import Thread
 from onboard.transmission.transmission_process import TransmissionThread
+
+from tornado import ioloop
 
 
 
@@ -11,10 +13,7 @@ class TransmissionBinder(Binder):
         super().__init__("transmission-binder")
 
         # Input from the queue
-        self.bind(RxQueueWrapper, to=AQMPRxQueueManager, strategy="prototype").init(RxQueueWrapperDelegate, configuration['processed']['data_exchange'])
-
-        # Log the output
-        self.bind(RxQueueWrapperDelegate, to=LoggingRxQueueWrapperDelegate, strategy="prototype")
+        self.bind(RxMultiDelegateQueueWrapper, to=AQMPMultiCastAsyncRxQueueManager, strategy="singleton").init(ioloop.IOLoop.instance(), configuration['processed']['data_exchange'])
 
         # And the thread
-        self.bind(Thread, to=TransmissionThread, strategy="singleton").init(RxQueueWrapper, configuration['processed']['queue'])
+        self.bind(Thread, to=TransmissionThread, strategy="singleton").init(RxMultiDelegateQueueWrapper, configuration['processed']['queue'])

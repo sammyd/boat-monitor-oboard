@@ -27,8 +27,9 @@ class AQMPBlockingTxQueueManager(TxQueueWrapper):
         connection.close()
 
 
-
-
+'''
+Rx delegates
+'''
 class RxQueueWrapperDelegate:
     def message_received(self, message):
         raise NotImplementedError
@@ -40,6 +41,9 @@ class LoggingRxQueueWrapperDelegate:
 
 
 
+'''
+2 Abstract Rx queue wrappers
+'''
 class RxQueueWrapper:
     def __init__(self, delegate):
         self._delegate = delegate
@@ -47,6 +51,31 @@ class RxQueueWrapper:
     def start(self):
         raise NotImplementedError
 
+
+class RxMultiDelegateQueueWrapper:
+    def __init__(self):
+        self._delegates = set([])
+
+    def start(self):
+        raise NotImplementedError
+
+    def add_delegate(self, delegate):
+        self._delegates.add(delegate)
+
+    def remove_delegate(self, delegate):
+        try:
+            self._delegates.remove(delegate)
+        except KeyError:
+            pass
+
+    def notify_delegates(self, message):
+        for delegate in self._delegates:
+            delegate.message_received(message)
+
+
+'''
+And AQMP implementations
+'''
 class AQMPRxQueueManager(RxQueueWrapper):
     def __init__(self, delegate, exchange):
         super().__init__(delegate)
@@ -77,11 +106,11 @@ class AQMPRxQueueManager(RxQueueWrapper):
 
 
 
-
-class AQMPMultiCastAsyncRxQueueManager(object):
+class AQMPMultiCastAsyncRxQueueManager(RxMultiDelegateQueueWrapper):
     def __init__(self, io_loop, exchange):
+        super().__init__()
         self.logger = logging.getLogger(__name__)
-        self.logger.info('PikaClient: __init__')
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: __init__')
         self.io_loop = io_loop
         self.exchange = exchange
  
@@ -90,15 +119,13 @@ class AQMPMultiCastAsyncRxQueueManager(object):
         self.connection = None
         self.channel = None
  
-        self.event_listeners = set([])
- 
-    def connect(self, routing_key):
+    def start(self, routing_key):
         if self.connecting:
-            self.logger.info('PikaClient: Already connecting to RabbitMQ')
+            self.logger.info('AQMPMultiCastAsyncRxQueueManager: Already connecting to RabbitMQ')
             return
  
         self.routing_key = routing_key
-        self.logger.info('PikaClient: Connecting to RabbitMQ')
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: Connecting to RabbitMQ')
         self.connecting = True
  
         cred = pika.PlainCredentials('guest', 'guest')
@@ -109,53 +136,37 @@ class AQMPMultiCastAsyncRxQueueManager(object):
             credentials=cred
         )
  
-        self.connection = TornadoConnection(param,
-            on_open_callback=self.on_connected)
+        self.connection = TornadoConnection(param, on_open_callback=self.on_connected)
         self.connection.add_on_close_callback(self.on_closed)
+        self.io_loop.start()
  
+    # Callback 1
     def on_connected(self, connection):
-        self.logger.info('PikaClient: connected to RabbitMQ')
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: connected to RabbitMQ')
         self.connected = True
         self.connection = connection
         self.connection.channel(self.on_channel_open)
  
+    # Callback 2
     def on_channel_open(self, channel):
-        self.logger.info('PikaClient: Channel open, Declaring exchange')
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: Channel open, Declaring exchange')
         self.channel = channel
-        # declare exchanges, which in turn, declare
-        # queues, and bind exchange to queues
         self.channel.queue_declare(exclusive=True, callback=self.on_queue_declared)
 
-    # Step #4
+    # Callback 3
     def on_queue_declared(self, frame):
         """Called when RabbitMQ has told us our Queue has been declared, frame is the response from RabbitMQ"""
         self.queue_name = frame.method.queue
         self.channel.queue_bind(self.on_queue_bind, exchange=self.exchange, queue=self.queue_name, routing_key=self.routing_key)
 
+    # Callback 4
     def on_queue_bind(self, frame):
         self.channel.basic_consume(self.on_message, queue=self.queue_name, no_ack=True)
 
     def on_closed(self, connection):
-        self.logger.info('PikaClient: rabbit connection closed')
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: rabbit connection closed')
         self.io_loop.stop()
  
     def on_message(self, channel, method, header, body):
-        self.logger.info('PikaClient: message received: %s' % body)
-        self.notify_listeners(body)
- 
-    def notify_listeners(self, event_obj):
-        for listener in self.event_listeners:
-            listener.write_message(event_obj)
-            self.logger.info('PikaClient: notified %s' % repr(listener))
- 
-    def add_event_listener(self, listener):
-        self.event_listeners.add(listener)
-        self.logger.info('PikaClient: listener %s added' % repr(listener))
- 
-    def remove_event_listener(self, listener):
-        try:
-            self.event_listeners.remove(listener)
-            self.logger.info('PikaClient: listener %s removed' % repr(listener))
-        except KeyError:
-            pass
-
+        self.logger.info('AQMPMultiCastAsyncRxQueueManager: message received: %s' % body)
+        self.notify_delegates(body)
