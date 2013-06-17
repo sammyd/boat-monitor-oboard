@@ -9,3 +9,4 @@ class TransmissionThread(Thread):
 
     def run(self):
         self.rx_queue_wrapper.start(self.routing_key)
+
