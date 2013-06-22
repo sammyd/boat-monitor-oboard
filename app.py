@@ -9,7 +9,7 @@ from onboard.processing.conversion_process import ConversionProcess
 import logging
 
 logger = logging.getLogger('onboard')
-logger.setLevel(logging.WARN)
+logger.setLevel(logging.INFO)
 
 from onboard.transmission import TransmissionBinder
 
@@ -46,7 +46,7 @@ config = {
 '''
 For demonstration purposes
 '''
-config = {
+demo_config = {
     'input': [
         {
             'type' : 'random',
@@ -64,6 +64,8 @@ config = {
         'queue' : 'converted'
     }
 }
+
+#config = demo_config
 
 
 input_binder = RawDataInputBinder(config)

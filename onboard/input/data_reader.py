@@ -61,6 +61,7 @@ class GPIODataSampleReader(SampleReader):
     '''
     def __init__(self, configuration):
         self._config = configuration
+        self._createADCSampler()
 
     def _createADCSampler(self):
         # Need to prepare the config

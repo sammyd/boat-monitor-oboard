@@ -29,7 +29,7 @@ class PiADCInput:
 
     def getSamples(self):
         results = {}
-        varDivisior = self._divisor
+        varDivisior = self._divisor()
         varMultiplier = ( 2.4705882 / varDivisior) / 1000
         try:
             with i2c.I2CMaster() as bus:
