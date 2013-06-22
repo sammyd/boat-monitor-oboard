@@ -1,6 +1,7 @@
 import random
 import time
 from onboard.input.gpio_input import PiADCInput
+import logging
 
 class DataReader:
     '''
@@ -62,6 +63,7 @@ class GPIODataSampleReader(SampleReader):
     def __init__(self, configuration):
         self._config = configuration
         self._createADCSampler()
+        self.logger = logging.getLogger(__name__)
 
     def _createADCSampler(self):
         # Need to prepare the config
@@ -69,10 +71,12 @@ class GPIODataSampleReader(SampleReader):
         channels = []
         for input_config in self._config['input']:
             channels.append(input_config['pin'])
+        self.logger.info('Channel list' % channels)
         self._piADCInput = PiADCInput(channels, accuracy)
 
     def read_sample(self):
         samples = self._piADCInput.getSamples()
+        self.logger.info("Samples: " % samples)
         # Need to create data points of the correct form
         datapoints = list()
         for channel in samples:
