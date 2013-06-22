@@ -20,7 +20,7 @@ config = {
             'type' : 'resistance',
             'id'   : 'pin0',
             'v_in' : 12.0,
-            'r_ref': 10000
+            'r_ref': 4700
         },
         {
             'pin'  : 1,
@@ -36,7 +36,7 @@ config = {
         }
     ],
     'raw_data_exchange' : 'raw_data',
-    'input_accuracy' : 14,
+    'input_accuracy' : 18,
     'processed' : {
         'data_exchange' : 'converted_data',
         'queue' : 'converted'
