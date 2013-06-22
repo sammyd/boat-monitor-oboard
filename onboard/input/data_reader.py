@@ -61,22 +61,23 @@ class GPIODataSampleReader(SampleReader):
     This implementation will read samples from the GPIO for the Pi-ADC
     '''
     def __init__(self, configuration):
+        self.logger = logging.getLogger(__name__)
         self._config = configuration
         self._createADCSampler()
-        self.logger = logging.getLogger(__name__)
 
     def _createADCSampler(self):
         # Need to prepare the config
+        self.logger.info("Creating the ADC sampler")
         accuracy = self._config['input_accuracy']
         channels = []
         for input_config in self._config['input']:
             channels.append(input_config['pin'])
-        self.logger.info('Channel list' % channels)
+        self.logger.info(('Channel list', channels))
         self._piADCInput = PiADCInput(channels, accuracy)
 
     def read_sample(self):
         samples = self._piADCInput.getSamples()
-        self.logger.info("Samples: " % samples)
+        self.logger.info(("Samples: ", samples))
         # Need to create data points of the correct form
         datapoints = list()
         for channel in samples:

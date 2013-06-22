@@ -45,8 +45,12 @@ class PiADCInput:
                     if (h > 128):
                         t = ~(0x020000 - t)
                     results[channel] = t * varMultiplier
-        except:
-            print("There was a problem")
+        except Exception as e:
+            print(("There was a problem", e))
+            print(("address", address, isinstance(address, int)))
+            print(("adcConfig", adcConfig, isinstance(adcConfig, int)))
+
+        return results
 
 
     def _divisor(self):
@@ -64,7 +68,7 @@ class PiADCInput:
 
         # Now we fiddle around with the values a little
         channel_start_config = 0x90 + channel * 0x20
-        accuracy_offset = (self._accuracy / 2 - 6)
+        accuracy_offset = int(self._accuracy / 2 - 6)
         adcConfig = channel_start_config + 4 * accuracy_offset
         return (address, adcConfig)
 

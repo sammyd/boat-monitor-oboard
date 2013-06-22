@@ -1,3 +1,7 @@
+import logging
+logger = logging.getLogger('onboard')
+logger.setLevel(logging.WARN)
+
 from onboard.input import RawDataInputBinder
 from onboard.input.data_reader import DataReader
 from threading import Thread
@@ -6,10 +10,6 @@ import time
 from onboard.processing import ValueConversionBinder
 from onboard.processing.conversion_process import ConversionProcess
 
-import logging
-
-logger = logging.getLogger('onboard')
-logger.setLevel(logging.INFO)
 
 from onboard.transmission import TransmissionBinder
 
